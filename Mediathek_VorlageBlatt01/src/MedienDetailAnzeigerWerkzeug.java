@@ -33,6 +33,20 @@ class MedienDetailAnzeigerWerkzeug
 	public void setMedien(List<Medium> medien)
 	{
 		assert medien != null : "Vorbedingung verletzt: (medien != null)";
+		StringBuilder builder = new StringBuilder();
+		for(Medium m : medien)
+		{
+			builder.append(m.getFormatiertenString());
+			builder.append("\n");
+		}
+		JTextArea selectedMedienTextArea = _ui.getMedienAnzeigerTextArea();
+		selectedMedienTextArea.setText(builder.toString());
+	}
+	
+/*	
+ 	public void setMedien(List<Medium> medien)
+	{
+		assert medien != null : "Vorbedingung verletzt: (medien != null)";
 
 		StringBuilder medString = new StringBuilder();
 		for (Medium m : medien)
@@ -63,7 +77,7 @@ class MedienDetailAnzeigerWerkzeug
 		JTextArea selectedMedienTextArea = _ui.getMedienAnzeigerTextArea();
 		selectedMedienTextArea.setText(medString.toString());
 	}
-
+*/
 	/**
 	 * Gibt das Panel dieses Subwerkzeugs zurück.
 	 * 

@@ -99,5 +99,17 @@ class CD implements Medium
     {
         return _titel;
     }
+    
+    @Override
+	public String getFormatiertenString()
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("CD\n");
+		builder.append("Titel:\t" + _titel + "\n");
+		builder.append("Kommentar:\t" + _kommentar + "\n");
+		builder.append("Interpret:\t" + _interpret + "\n");
+		builder.append("Spiellänge:\t" + _spiellaenge + "Minuten\n");
+		return builder.toString();
+	}
 
 }

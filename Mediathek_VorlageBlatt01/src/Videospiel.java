@@ -57,4 +57,15 @@ public class Videospiel implements Medium
 	{
 		return _platform;
 	}
+	
+	@Override
+	public String getFormatiertenString()
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("Videospiel\n");
+		builder.append("Titel:\t" + _titel + "\n");
+		builder.append("Kommentar:\t" + _kommentar + "\n");
+		builder.append("Platform:\t" + _platform + "\n");
+		return builder.toString();
+	}
 }

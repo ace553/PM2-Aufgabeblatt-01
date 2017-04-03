@@ -36,4 +36,12 @@ interface Medium
      */
     String getTitel();
 
+    /**
+     * Gibt die Details des Mediums in einem Formatierten String zurueck.
+     * 
+     * @return Die Details des Mediums.
+     * 
+     * @ensure result != null
+     */
+    String getFormatiertenString();
 }
