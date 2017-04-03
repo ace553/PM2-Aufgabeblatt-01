@@ -70,18 +70,26 @@ class VerleihServiceImpl extends AbstractObservableService implements
     @Override
     public boolean istVerliehen(Medium medium)
     {
+        assert mediumImBestand(medium) : "medium ist nicht im Bestand.";
+    	
         return _verleihkarten.get(medium) != null;
     }
 
     @Override
     public boolean istVerleihenMoeglich(Kunde kunde, List<Medium> medien)
     {
-        return sindAlleNichtVerliehen(medien);
+    	assert kundeImBestand(kunde) : "kunde ist nicht im Bestand.";
+    	assert medienImBestand(medien) : "medien sind nicht im Bestand.";
+        
+    	return sindAlleNichtVerliehen(medien);
     }
 
     @Override
     public void nimmZurueck(List<Medium> medien, Datum rueckgabeDatum)
     {
+    	assert sindAlleVerliehen(medien) : "Nicht alle medien sind verliehen.";
+    	assert rueckgabeDatum != null : "rückgabe Datum ist null.";
+    	
         for (Medium medium : medien)
         {
             _verleihkarten.remove(medium);
@@ -92,7 +100,9 @@ class VerleihServiceImpl extends AbstractObservableService implements
     @Override
     public boolean sindAlleNichtVerliehen(List<Medium> medien)
     {
-        boolean result = true;
+    	assert medienImBestand(medien) : "einige Medien sind nicht im Bestand.";
+        
+    	boolean result = true;
         for (Medium medium : medien)
         {
             if (istVerliehen(medium))
@@ -106,7 +116,9 @@ class VerleihServiceImpl extends AbstractObservableService implements
     @Override
     public boolean sindAlleVerliehen(List<Medium> medien)
     {
-        boolean result = true;
+    	assert medienImBestand(medien) : "einige Medien sind nicht im Bestand.";
+        
+    	boolean result = true;
         for (Medium medium : medien)
         {
             if (!istVerliehen(medium))
@@ -120,7 +132,11 @@ class VerleihServiceImpl extends AbstractObservableService implements
     @Override
     public void verleiheAn(Kunde kunde, List<Medium> medien, Datum ausleihDatum)
     {
-        for (Medium medium : medien)
+    	assert kundeImBestand(kunde) : "kunde ist nicht im Bestand";
+        assert sindAlleNichtVerliehen(medien) : "medien sind alle verliehen";
+        assert ausleihDatum != null : "ausleihDatum ist null";
+        
+    	for (Medium medium : medien)
         {
         	_verleihkarten.put(medium, new Verleihkarte(kunde, medium, ausleihDatum));
 
@@ -132,18 +148,25 @@ class VerleihServiceImpl extends AbstractObservableService implements
     @Override
     public boolean kundeImBestand(Kunde kunde)
     {
+    	assert kunde != null : "kunde ist null.";
+    	
         return _kundenstamm.enthaeltKunden(kunde);
     }
 
     @Override
     public boolean mediumImBestand(Medium medium)
     {
+    	assert medium != null : "medium ist null.";
+    	
         return _medienbestand.enthaeltMedium(medium);
     }
 
     @Override
     public boolean medienImBestand(List<Medium> medien)
     {
+    	assert medien != null : "medien ist null.";
+    	assert !medien.isEmpty() : "medien ist leer.";
+    	
         boolean result = true;
         for (Medium medium : medien)
         {
@@ -159,7 +182,9 @@ class VerleihServiceImpl extends AbstractObservableService implements
     @Override
     public List<Medium> getAusgelieheneMedienFuer(Kunde kunde)
     {
-        List<Medium> result = new ArrayList<Medium>();
+    	assert kundeImBestand(kunde) : "kunde ist nicht im Bestand";
+        
+    	List<Medium> result = new ArrayList<Medium>();
         for (Verleihkarte verleihkarte : _verleihkarten.values())
         {
             if (verleihkarte.getEntleiher().equals(kunde))
@@ -173,19 +198,25 @@ class VerleihServiceImpl extends AbstractObservableService implements
     @Override
     public Kunde getEntleiherFuer(Medium medium)
     {
-        Verleihkarte verleihkarte = _verleihkarten.get(medium);
+    	assert istVerliehen(medium) : "medium ist nicht verliehen.";
+        
+    	Verleihkarte verleihkarte = _verleihkarten.get(medium);
         return verleihkarte.getEntleiher();
     }
 
     @Override
     public Verleihkarte getVerleihkarteFuer(Medium medium)
     {
-        return _verleihkarten.get(medium);
+    	assert istVerliehen(medium) : "medium ist nicht verliehen.";
+        
+    	return _verleihkarten.get(medium);
     }
 
     @Override
     public List<Verleihkarte> getVerleihkartenFuer(Kunde kunde)
     {
+    	assert kundeImBestand(kunde) : "kunde ist nicht im Bestand.";
+    	
         List<Verleihkarte> result = new ArrayList<Verleihkarte>();
         for (Verleihkarte verleihkarte : _verleihkarten.values())
         {

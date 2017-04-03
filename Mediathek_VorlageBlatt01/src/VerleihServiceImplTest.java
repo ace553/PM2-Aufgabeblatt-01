@@ -76,22 +76,51 @@ public class VerleihServiceImplTest
     	
     	_verleihService.verleiheAn(kunde, zuVerleihen, datum);
     	
-    	List<Medium> ausgeliehendeMedien = _verleihService.getAusgelieheneMedienFuer(kunde);
-    	for(Medium m : zuVerleihen)
-    	{
-    		assertTrue("Nicht alle Medien wurden ausgeliehen.",ausgeliehendeMedien.contains(m));
-    			
-    	}
+    	_verleihService.sindAlleVerliehen(zuVerleihen);
     }
 
     @Test
-    public void testNochEinTestFall2()
+    public void testGetAusleihKarteFuer()
     {
+    	Kunde kunde = _kundenstamm.getKunden().get(0);
+    	assertTrue(_verleihService.getVerleihkartenFuer(kunde).isEmpty());
+    	
+    	List<Medium> zuVerleihen = new ArrayList<Medium>();
+    	zuVerleihen.add(_medienbestand.getMedien().get(0));
+    	zuVerleihen.add(_medienbestand.getMedien().get(1));
+    	zuVerleihen.add(_medienbestand.getMedien().get(2));
+    	
+    	Datum datum = Datum.heute();
+    	
+    	_verleihService.verleiheAn(kunde, zuVerleihen, datum);
+    	
+    	assertTrue(_verleihService.getVerleihkartenFuer(kunde).size() == 3);
     }
 
     @Test
-    public void testNochEinTestFall3()
+    public void testNimmZurueck()
     {
+    	List<Medium> zuVerleihen = new ArrayList<Medium>();
+    	zuVerleihen.add(_medienbestand.getMedien().get(0));
+    	zuVerleihen.add(_medienbestand.getMedien().get(1));
+    	zuVerleihen.add(_medienbestand.getMedien().get(2));
+    	
+    	Kunde kunde = _kundenstamm.getKunden().get(0);
+    	
+    	Datum datum = Datum.heute();
+    	
+    	_verleihService.verleiheAn(kunde, zuVerleihen, datum);
+    	
+    	List<Medium> zurueck = new ArrayList<Medium>();
+    	zurueck.add(zuVerleihen.get(0));
+    	
+    	_verleihService.nimmZurueck(zurueck, datum);
+    	
+    	assertTrue(_verleihService.sindAlleNichtVerliehen(zurueck));
+    	zuVerleihen.remove(0);
+    	_verleihService.nimmZurueck(zuVerleihen, datum);
+    	
+    	assertTrue(_verleihService.sindAlleNichtVerliehen(zuVerleihen));
     }
 
     private void setUpKunden()
