@@ -78,6 +78,7 @@ class MedienDetailAnzeigerWerkzeug
 		selectedMedienTextArea.setText(medString.toString());
 	}
 */
+	
 	/**
 	 * Gibt das Panel dieses Subwerkzeugs zurück.
 	 * 
