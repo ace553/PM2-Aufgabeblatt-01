@@ -12,37 +12,65 @@ import javax.swing.JTextArea;
  */
 class MedienDetailAnzeigerWerkzeug
 {
-    private MedienDetailAnzeigerUI _ui;
+	private MedienDetailAnzeigerUI _ui;
 
-    /**
-     * Initialisiert ein neues MedienDetailAnzeigerWerkzeug.
-     */
-    public MedienDetailAnzeigerWerkzeug()
-    {
-        _ui = new MedienDetailAnzeigerUI();
-    }
+	/**
+	 * Initialisiert ein neues MedienDetailAnzeigerWerkzeug.
+	 */
+	public MedienDetailAnzeigerWerkzeug()
+	{
+		_ui = new MedienDetailAnzeigerUI();
+	}
 
-    /**
-     * Setzt die Liste der Medien deren Details angezeigt werden sollen.
-     * 
-     * @param medien Eine Liste von Medien.
-     * 
-     * @require (medien != null)
-     */
-    public void setMedien(List<Medium> medien)
-    {
-        assert medien != null : "Vorbedingung verletzt: (medien != null)";
-        JTextArea selectedMedienTextArea = _ui.getMedienAnzeigerTextArea();
-        selectedMedienTextArea.setText("");
-    }
+	/**
+	 * Setzt die Liste der Medien deren Details angezeigt werden sollen.
+	 * 
+	 * @param medien
+	 *            Eine Liste von Medien.
+	 * 
+	 * @require (medien != null)
+	 */
+	public void setMedien(List<Medium> medien)
+	{
+		assert medien != null : "Vorbedingung verletzt: (medien != null)";
 
-    /**
-     * Gibt das Panel dieses Subwerkzeugs zurück.
-     * 
-     * @ensure result != null
-     */
-    public JPanel getUIPanel()
-    {
-        return _ui.getUIPanel();
-    }
+		StringBuilder medString = new StringBuilder();
+		for (Medium m : medien)
+		{
+			medString.append(m.getMedienBezeichnung() +"\n");
+			medString.append("Titel:\t"+m.getTitel()+"\n");
+			medString.append("Kommentar:\t"+m.getKommentar()+"\n");
+			
+			if(m instanceof CD)
+			{
+				CD cd = (CD) m;
+				medString.append("Interpret:\t"+cd.getInterpret()+"\n");
+				medString.append("Spiellänge:\t"+cd.getSpiellaenge() +" Minuten\n");
+			}
+			else if(m instanceof DVD)
+			{
+				DVD dvd = (DVD) m;
+				medString.append("Regisseur:\t"+dvd.getRegisseur()+"\n");
+				medString.append("Laufzeit:\t"+dvd.getLaufzeit()+" Minuten\n");
+			}
+			else if(m instanceof Videospiel)
+			{
+				Videospiel videospiel = (Videospiel) m;
+				medString.append("Platform:\t"+videospiel.getPlatform()+"\n");
+			}
+			medString.append("\n");
+		}
+		JTextArea selectedMedienTextArea = _ui.getMedienAnzeigerTextArea();
+		selectedMedienTextArea.setText(medString.toString());
+	}
+
+	/**
+	 * Gibt das Panel dieses Subwerkzeugs zurück.
+	 * 
+	 * @ensure result != null
+	 */
+	public JPanel getUIPanel()
+	{
+		return _ui.getUIPanel();
+	}
 }

@@ -3,7 +3,7 @@ public class Videospiel implements Medium
 
 	private String _titel;
 	private String _kommentar;
-	private Platform _platform;
+	private String _platform;
 
 	/**
 	 * Initialisiert ein neus Exemplar.
@@ -18,35 +18,15 @@ public class Videospiel implements Medium
 	 * 
 	 * @ensure getTitel() == titel
 	 * @ensure getKommentar() == kommentar
-	 * @ensure getPlatform() == platform.getLesbarenNamen()
+	 * @ensure getPlatform() == platform
 	 */
-	public Videospiel(String titel, String kommentar, Platform platform)
+	public Videospiel(String titel, String kommentar, String platform)
 	{
 		_titel = titel;
 		_kommentar = kommentar;
 		_platform = platform;
 	}
-	
-	/**
-	 * Initialisiert ein neus Exemplar.
-	 * 
-	 * @param titel Der Titel des Videospiels
-	 * @param kommentar Ein Kommentar zu dem Videospiel
-	 * @param platform Die Platform des Videospiels (Muss eine gueltige Plattform sein)
-	 * 
-	 * @require titel != null
-	 * @require kommentar != null
-	 * @require platform != null
-	 * @require platform ist ein lesbarerName von Platform (enum)
-	 * 
-	 * @ensure getTitel() == titel
-	 * @ensure getKommentar() == kommentar
-	 * @ensure getPlatform() == platform
-	 */
-	public Videospiel(String titel, String kommentar, String platform)
-	{
-		this(titel, kommentar, Platform.getVonLesbaremNamen(platform));
-	}
+
 
 	@Override
 	public String getKommentar()
@@ -75,7 +55,6 @@ public class Videospiel implements Medium
 	 */
 	public String getPlatform()
 	{
-		return _platform.getLesbarenName();
+		return _platform;
 	}
-
 }

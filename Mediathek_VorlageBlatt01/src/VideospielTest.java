@@ -10,8 +10,7 @@ public class VideospielTest
 	private static final String TITEL = "Sims3";
 	private static final String KOMMENTAR = "Kommentar";
 	private static final String VS_BEZEICHNUNG = "Videospiel";
-
-	private static final Platform PLATFORM = Platform.PC;
+	private static final String PLATFORM = "PC";
 
 	private Videospiel _vs1;
 	private Videospiel _vs2;
@@ -27,7 +26,7 @@ public class VideospielTest
 	{
         assertEquals(TITEL, _vs1.getTitel());
         assertEquals(KOMMENTAR, _vs1.getKommentar());
-        assertEquals(PLATFORM.getLesbarenName(), _vs1.getPlatform());
+        assertEquals(PLATFORM, _vs1.getPlatform());
 	}
 	
     @Test
