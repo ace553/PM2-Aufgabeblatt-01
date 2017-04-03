@@ -63,8 +63,25 @@ public class VerleihServiceImplTest
     }
 
     @Test
-    public void testNochEinTestFall1()
+    public void testVerleiheAn()
     {
+    	List<Medium> zuVerleihen = new ArrayList<Medium>();
+    	zuVerleihen.add(_medienbestand.getMedien().get(0));
+    	zuVerleihen.add(_medienbestand.getMedien().get(1));
+    	zuVerleihen.add(_medienbestand.getMedien().get(2));
+    	
+    	Kunde kunde = _kundenstamm.getKunden().get(0);
+    	
+    	Datum datum = Datum.heute();
+    	
+    	_verleihService.verleiheAn(kunde, zuVerleihen, datum);
+    	
+    	List<Medium> ausgeliehendeMedien = _verleihService.getAusgelieheneMedienFuer(kunde);
+    	for(Medium m : zuVerleihen)
+    	{
+    		assertTrue("Nicht alle Medien wurden ausgeliehen.",ausgeliehendeMedien.contains(m));
+    			
+    	}
     }
 
     @Test
