@@ -22,6 +22,11 @@ interface MedienbestandService extends ObservableService
      * nachgefragt wird.
      * 
      * @param medium Ein zu entfernendes Medium
+     * 
+     * @require medium != null;
+     * @require enthaeltMedium(medium)
+     * 
+     * @ensure !enthaeltMedium(medium)
      */
     void entferneMedium(Medium medium);
 
@@ -31,6 +36,8 @@ interface MedienbestandService extends ObservableService
      * @param medium Ein Medium
      * @return true, wenn Medium im Medienbestand enthalten ist, andernfalls
      *         false.
+     *         
+     * @require medium != null
      */
     boolean enthaeltMedium(Medium medium);
 
@@ -41,6 +48,10 @@ interface MedienbestandService extends ObservableService
      * Medium.
      * 
      * @param neuesMedium Ein neues Medium
+     * 
+     * @require neuesMedium != null
+     * 
+     * @ensure enthaeltMedium(neuesMedium)
      */
     void fuegeMediumEin(Medium neuesMedium);
 
