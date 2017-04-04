@@ -76,7 +76,7 @@ public class VerleihServiceImplTest
     	
     	_verleihService.verleiheAn(kunde, zuVerleihen, datum);
     	
-    	_verleihService.sindAlleVerliehen(zuVerleihen);
+    	assertTrue(_verleihService.sindAlleVerliehen(zuVerleihen));
     }
 
     @Test
