@@ -111,7 +111,7 @@ class DVD implements Medium
 		builder.append("Titel:\t" + _titel + "\n");
 		builder.append("Kommentar:\t" + _kommentar + "\n");
 		builder.append("Regisseur:\t" + _regisseur + "\n");
-		builder.append("Laufzeit:\t" + _laufzeit + "Minuten\n");
+		builder.append("Laufzeit:\t" + _laufzeit + " Minuten\n");
 		return builder.toString();
 	}
 }

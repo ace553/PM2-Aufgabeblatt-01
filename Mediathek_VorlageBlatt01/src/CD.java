@@ -108,7 +108,7 @@ class CD implements Medium
 		builder.append("Titel:\t" + _titel + "\n");
 		builder.append("Kommentar:\t" + _kommentar + "\n");
 		builder.append("Interpret:\t" + _interpret + "\n");
-		builder.append("Spiellänge:\t" + _spiellaenge + "Minuten\n");
+		builder.append("Spiellänge:\t" + _spiellaenge + " Minuten\n");
 		return builder.toString();
 	}
 
