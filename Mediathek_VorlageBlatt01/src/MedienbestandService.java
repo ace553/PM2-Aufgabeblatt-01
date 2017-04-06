@@ -50,6 +50,7 @@ interface MedienbestandService extends ObservableService
      * @param neuesMedium Ein neues Medium
      * 
      * @require neuesMedium != null
+     * @require !enthaeltMedium(neuesMedium)
      * 
      * @ensure enthaeltMedium(neuesMedium)
      */
@@ -59,6 +60,8 @@ interface MedienbestandService extends ObservableService
      * Liefert alle vorhandenen Medien.
      * 
      * @return Eine Kopie der Liste mit allen vorhandenen Medien.
+     * 
+     * @ensure result != null
      */
     List<Medium> getMedien();
 

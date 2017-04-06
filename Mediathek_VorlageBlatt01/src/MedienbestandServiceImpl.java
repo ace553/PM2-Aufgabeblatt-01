@@ -32,7 +32,6 @@ class MedienbestandServiceImpl extends AbstractObservableService
     @Override
     public void entferneMedium(Medium medium)
     {
-    	assert medium != null : "medium ist null.";
     	assert enthaeltMedium(medium) : "medium ist nicht im Medienbestand enthalten.";
     	
         _medienbestand.remove(medium);
@@ -52,7 +51,7 @@ class MedienbestandServiceImpl extends AbstractObservableService
     public void fuegeMediumEin(Medium neuesMedium)
     {
     	assert neuesMedium != null : "neuesMedium ist null.";
-    	
+    	assert !enthaeltMedium(neuesMedium) : "medium ist bereits im Medienbestand enthalten.";
         _medienbestand.add(neuesMedium);
 
         informiereUeberAenderung();
